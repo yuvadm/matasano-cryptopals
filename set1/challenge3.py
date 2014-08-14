@@ -4,9 +4,12 @@ def score_plaintext(s):
     letters = filter(lambda x: 'a'<=x<='z' or 'A'<=x<='Z', s)
     return float(len(letters)) / len(s)
 
-res = []
-for i in range(256):
-    chrs = [chr(ord(s) ^ i) for s in x.decode('hex')]
-    res.append([score_plaintext(chrs), ''.join(chrs)])
+def get_max_single_char_xor(s):
+    res = []
+    for i in range(256):
+        chrs = [chr(ord(s) ^ i) for s in x.decode('hex')]
+        res.append([score_plaintext(chrs), ''.join(chrs)])
+    return max(res, key=lambda x: x[0])
 
-print(max(res, key=lambda x: x[0])[1])
+if __name__ == '__main__':
+    print get_max_single_char_xor(x)
